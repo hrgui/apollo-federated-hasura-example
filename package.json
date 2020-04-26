@@ -1,0 +1,8 @@
+{
+  "name": "apollo-federated-hasura-example",
+  "private": true,
+  "workspaces": ["packages/**"],
+  "devDependencies": {
+    "lerna": "^3.4.3"
+  }
+}

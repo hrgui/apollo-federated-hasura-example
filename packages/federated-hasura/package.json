@@ -1,0 +1,16 @@
+{
+  "name": "federated-hasura",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Harman",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^2.12.0",
+    "graphql": "^15.0.0",
+    "graphql-middleware": "^4.0.2",
+    "graphql-tag": "^2.10.3",
+    "graphql-tools": "^5.0.0",
+    "graphql-transform-federation": "^2.1.0",
+    "node-fetch": "^2.6.0"
+  }
+}
