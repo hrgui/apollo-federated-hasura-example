@@ -11,6 +11,7 @@
     "@apollo/gateway": "^0.14.1",
     "apollo-server": "^2.12.0",
     "graphql": "^15.0.0",
+    "graphql-middleware": "^4.0.2",
     "graphql-tag": "^2.10.3",
     "node-fetch": "^2.6.0",
     "nodemon": "^2.0.3"
