@@ -12,24 +12,22 @@ This describes how to use Hasura in an existing GraphQL Server. Note that Hasura
 In addition, this makes Hasura something that can be added in any Stack gradually, instead of taking over everything all at once.
 
 # Getting Started
-1. `yarn`
-2. `docker-compose up -d` to start hasura and postgres
-3. Run the hasura migrations, `cd hasura && hasura migrate apply`
-4. In 1 terminal screen, `cd packages/federated-hasura && node index.js`
-5. In 1 terminal screen, `cd packages/gql-gateway && node index.js`
-6. Open `http://localhost:9000` and run queries as you wish.
+From root directory:
+```sh
+yarn
+docker-compose up -d
+```
 
 # Flow Diagram
 ![Flow Diagram made with Excalidraw](./flow-diagram.png)
 
 # Features
-- Example of deploying a Federated Schema w/ Hasura via [`graphql-transform-federation`](https://github.com/0xR/graphql-transform-federation); hooking up Apollo Gateway to it
+- Example of deploying a Federated Schema w/ Hasura via [`graphql-transform-federation`](https://github.com/0xR/graphql-transform-federation); hooking up Apollo Gateway to it.
+- federated-hasura also serves an example of how to fetch the remote schema off from graphql-engine
 - [`graphql-middleware`](https://github.com/prisma-labs/graphql-middleware) example for Federated Hasura Server, which can serve as a validation layer for the existing schema
 
-# TODO
-- Put everything into graphql-compose, use hasura-migrations-cli
-
 # Things to note
+- I just whipped this up in 1 hour, **this is not suitable for production as it is just an example**. - please tweak and change to your liking, serves similar to a boilerplate.
 - Federated operations may not work, I haven't tested it yet.
 - Subscriptions will not work because Apollo Gateway does not support Subscriptions!
 - Performance of Hasura queries / mutations will be slower as we are hitting 2 servers (Gateway => Federated Hasura) before hitting the Hasura endpoint.

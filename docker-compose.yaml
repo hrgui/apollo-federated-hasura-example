@@ -1,4 +1,7 @@
 version: '3.6'
+networks:
+  backend:
+    name: backend
 services:
   postgres:
     image: postgres:12
@@ -7,19 +10,54 @@ services:
     - db_data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: postgrespassword
+    networks:
+      - backend
+  federated-hasura:
+    build:
+      context: ./
+      dockerfile: ./packages/federated-hasura/docker/federated-hasura-dev.Dockerfile
+    command: "yarn federated-hasura-dc"
+    volumes:
+      - ./node_modules:/app/node_modules 
+      - ./packages/federated-hasura:/app/packages/federated-hasura
+    ports:
+      - "9001:9001"
+    networks:
+      - backend
+    environment:
+      HASURA_URL: "http://graphql-engine:8080/v1/graphql"
+  gql-gateway:
+    build:
+      context: ./
+      dockerfile: ./packages/gql-gateway/docker/gql-gateway-dev.Dockerfile
+    command: "yarn gql-gateway-dc"
+    volumes:
+      - ./node_modules:/app/node_modules 
+      - ./packages/gql-gateway:/app/packages/gql-gateway
+    ports:
+      - "9000:9000"
+    networks:
+      - backend
+    environment:
+      FED_HASURA_URL: "http://federated-hasura:9001/"
   graphql-engine:
-    image: hasura/graphql-engine:v1.1.1
+    build:
+      context: ./packages/hasura
+      dockerfile: ./docker/graphql-engine.Dockerfile
     ports:
     - "8080:8080"
     depends_on:
     - "postgres"
     restart: always
     environment:
+      HASURA_GRAPHQL_ENABLE_TELEMETRY: "false"
       HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432/postgres
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       ## uncomment next line to set an admin secret
       # HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
+    networks:
+      - backend
 volumes:
   db_data:
 

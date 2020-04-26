@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "Harman",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon -L index.js"
+  },
   "dependencies": {
     "apollo-server": "^2.12.0",
     "graphql": "^15.0.0",
@@ -11,6 +14,7 @@
     "graphql-tag": "^2.10.3",
     "graphql-tools": "^5.0.0",
     "graphql-transform-federation": "^2.1.0",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "nodemon": "^2.0.3"
   }
 }

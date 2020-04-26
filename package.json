@@ -1,8 +1,19 @@
 {
   "name": "apollo-federated-hasura-example",
   "private": true,
-  "workspaces": ["packages/**"],
+  "workspaces": [
+    "packages/**"
+  ],
+  "scripts": {
+    "gql-gateway-dc": "yarn wait-on -l -v tcp:federated-hasura:9001 && yarn gql-gateway-dev",
+    "federated-hasura-dc": "yarn wait-on -l -v tcp:graphql-engine:8080 && yarn federated-hasura-dev",
+    "gql-gateway-dev": "cd packages/gql-gateway && yarn dev",
+    "federated-hasura-dev": "cd packages/federated-hasura && yarn dev"
+  },
   "devDependencies": {
     "lerna": "^3.4.3"
+  },
+  "dependencies": {
+    "wait-on": "^4.0.2"
   }
 }
