@@ -26,6 +26,17 @@ docker-compose up -d
 - federated-hasura also serves an example of how to fetch the remote schema off from graphql-engine
 - [`graphql-middleware`](https://github.com/prisma-labs/graphql-middleware) example for Federated Hasura Server, which can serve as a validation layer for the existing schema
 
+# Pain Points
+
+## Migrations
+The migration that currently exists contains 2 files, `up.yaml` and `up.sql`. `up.sql` gets applied, but not `up.yaml`. 
+
+https://hasura.io/blog/resetting-hasura-migrations/
+
+Workaround for this is:
+1. `hasura metadata apply` in the `packages/hasura` directory.
+
+
 # Things to note
 - I just whipped this up in 1 hour, **this is not suitable for production as it is just an example**. - please tweak and change to your liking, serves similar to a boilerplate.
 - Federated operations may not work, I haven't tested it yet.

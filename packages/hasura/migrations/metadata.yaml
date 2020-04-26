@@ -1,0 +1,24 @@
+version: 2
+tables:
+- table:
+    schema: public
+    name: user
+  select_permissions:
+  - role: editor
+    permission:
+      columns:
+      - created_at
+      - id
+      - name
+      - updated_at
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: editor
+    permission:
+      columns:
+      - name
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
