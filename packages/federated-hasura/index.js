@@ -33,12 +33,16 @@ const fetcher = async ({
   query: queryDocument,
   variables,
   operationName,
+  context
 }) => {
+  const {graphqlContext = {}} = context;
+  const {req} = graphqlContext;
   const query = print(queryDocument);
   const fetchResult = await fetch(HASURA_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      ...req.headers
     },
     body: JSON.stringify({ query, variables, operationName }),
   });
@@ -72,7 +76,7 @@ async function getHasuraSchema() {
 
 (async () => {
   const schema = await getHasuraSchema();
-  const server = new ApolloServer({ schema });
+  const server = new ApolloServer({ schema, context: ({req, res}) => ({req}) });
 
   server.listen({ port: PORT }).then(({ url }) => {
     console.log(`Federated Hasura ready at ${url}`);

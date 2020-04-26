@@ -1,0 +1,26 @@
+- args:
+    tables:
+    - select_permissions:
+      - permission:
+          columns:
+          - created_at
+          - id
+          - name
+          - updated_at
+          filter:
+            id:
+              _eq: X-Hasura-User-Id
+        role: editor
+      table:
+        name: user
+        schema: public
+      update_permissions:
+      - permission:
+          columns:
+          - name
+          filter:
+            id:
+              _eq: X-Hasura-User-Id
+        role: editor
+    version: 2
+  type: replace_metadata
