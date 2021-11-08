@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@apollo/gateway": "^0.14.1",
-    "apollo-server": "^2.14.2",
+    "apollo-server": "^2.25.3",
     "graphql": "^15.0.0",
     "graphql-middleware": "^4.0.2",
     "graphql-tag": "^2.10.3",
